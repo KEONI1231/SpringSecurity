@@ -34,6 +34,12 @@ public class Users {
                 .build();
 
     }
+    public static Users jwtSetter(String userName, String password, String role) {
+        return Users.builder()
+                .password(password)
+                .role(role)
+                .build();
+    }
     public Users() {
 
     }
