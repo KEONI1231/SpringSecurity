@@ -1,5 +1,6 @@
 package com.example.SpringJwtStudyOnYoutube.config;
 
+import com.example.SpringJwtStudyOnYoutube.jwt.JWTFilter;
 import com.example.SpringJwtStudyOnYoutube.jwt.JWTUtil;
 import com.example.SpringJwtStudyOnYoutube.jwt.LoginFilter;
 import lombok.RequiredArgsConstructor;
@@ -47,6 +48,9 @@ public class SecurityConfig {
                         .requestMatchers("/login", "/", "/join", "/test").permitAll() //모든 권한 허용.
                         .requestMatchers("/admin").hasRole("Admin") // amdin url엔 Admin 역할 가진 사용자만 접근 가능.
                         .anyRequest().authenticated());
+
+        http
+                .addFilterBefore(new JWTFilter(jwtUtil), LoginFilter.class);
 
         //세션 설정 : jwt에서는 세션을 항상 statless 상태로 관리하게 된다.
         http //중요!!
